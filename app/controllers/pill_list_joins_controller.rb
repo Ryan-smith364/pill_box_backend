@@ -1,0 +1,2 @@
+class PillListJoinsController < ApplicationController
+end

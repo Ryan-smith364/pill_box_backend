@@ -1,0 +1,2 @@
+class PillList < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class PillListJoin < ApplicationRecord
+end
