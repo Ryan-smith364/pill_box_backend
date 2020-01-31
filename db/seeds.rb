@@ -25,7 +25,7 @@ end
 # p pills
 
 pills.each do |pill|
-   Pill.create( name: pill['openfda']["generic_name"], purpose: pill["purpose"], description: pill["description"], dose: pill["dosage_and_administration"], pregnancy: pill["pregnancy"], warnings: pill["warnings"], stop_use: pill["stop_use"], brand: pill['openfda']["brand_name"], route: pill['openfda']["route"], package_label: pill["package_label_principal_display_panel"] )
+   Pill.create( name: pill['openfda']["generic_name"][0], purpose: pill["purpose"], description: pill["description"], dose: pill["dosage_and_administration"], pregnancy: pill["pregnancy"], warnings: pill["warnings"], stop_use: pill["stop_use"], brand: pill['openfda']["brand_name"], route: pill['openfda']["route"], package_label: pill["package_label_principal_display_panel"] )
 end
 
 # :name,
