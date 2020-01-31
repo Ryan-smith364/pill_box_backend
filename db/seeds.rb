@@ -17,7 +17,51 @@ pills = []
 
 json_data['results'].each do |pill|
     if pill['openfda']['generic_name'] != nil 
-      pills << pill
+
+      repill = {name: nil , purpose: nil , description: nil , dose: nil , pregnancy: nil , warnings: nil , stop_use: nil , brand: nil , route: nil ,package_label: nil}
+      
+      if pill['openfda']["generic_name"]
+         names = pill['openfda']["generic_name"][0].split(',')
+         repill[:name] = names[0]
+      end
+
+      if pill["purpose"]
+         repill[:purpose] = pill["purpose"][0]
+      end
+
+      if pill["description"]
+         repill[:description] = pill["description"][0]
+      end
+
+      if pill["dosage_and_administration"]
+         repill[:dosage] = pill["dosage_and_administration"][0]
+      end
+
+      if pill["pregnancy"]
+         repill[:pregnancy] = pill["pregnancy"][0]
+      end
+
+      if pill["warnings"]
+         repill[:warnings] = pill["warnings"][0]
+      end
+
+      if pill["stop_use"]
+         repill[:stop_use] = pill["stop_use"][0]
+      end
+
+      if pill['openfda']["brand_name"]
+         repill[:brand] = pill['openfda']["brand_name"][0]
+      end
+
+      if pill['openfda']["route"]
+         repill[:route] = pill['openfda']["route"][0]
+      end
+
+      if pill["package_label_principal_display_panel"]
+         repill[:package_label] = pill["package_label_principal_display_panel"][0]
+      end
+
+      pills << repill
     end
     
 end
@@ -25,7 +69,7 @@ end
 # p pills
 
 pills.each do |pill|
-   Pill.create( name: pill['openfda']["generic_name"][0], purpose: pill["purpose"], description: pill["description"], dose: pill["dosage_and_administration"], pregnancy: pill["pregnancy"], warnings: pill["warnings"], stop_use: pill["stop_use"], brand: pill['openfda']["brand_name"], route: pill['openfda']["route"], package_label: pill["package_label_principal_display_panel"] )
+   Pill.create( name: pill[:name], purpose: pill[:purpose], description: pill[:description], dose: pill[:dose], pregnancy: pill[:pregnancy], warnings: pill[:warnings], stop_use: pill[:stop_use], brand: pill[:brand], route: pill[:route], package_label: pill[:package_label] )
 end
 
 # :name,
