@@ -3,6 +3,7 @@ class CreatePillLists < ActiveRecord::Migration[6.0]
     create_table :pill_lists do |t|
 
       t.string :name
+      t.string :desc
       t.integer :user_id
       t.timestamps
     end

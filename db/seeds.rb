@@ -9,19 +9,20 @@ require 'rest-client'
 
 Pill.destroy_all
 
-data = RestClient.get 'https://api.fda.gov/drug/label.json?limit=100'
+data = RestClient.get 'https://api.fda.gov/drug/label.json?search=_exists_:openfda&limit=100'
 
 json_data = JSON.parse(data.body)
 
 pills = []
 
 json_data['results'].each do |pill|
-    if pill['openfda']['generic_name'] != nil 
+   #  if pill['openfda']['generic_name'] != nil 
+      
 
       repill = {name: nil , purpose: nil , description: nil , dose: nil , pregnancy: nil , warnings: nil , stop_use: nil , brand: nil , route: nil ,package_label: nil}
       
-      if pill['openfda']["generic_name"]
-         names = pill['openfda']["generic_name"][0].split(',')
+      if pill['openfda']["brand_name"]
+         names = pill['openfda']["brand_name"][0].split(',')
          repill[:name] = names[0]
       end
 
@@ -49,8 +50,8 @@ json_data['results'].each do |pill|
          repill[:stop_use] = pill["stop_use"][0]
       end
 
-      if pill['openfda']["brand_name"]
-         repill[:brand] = pill['openfda']["brand_name"][0]
+      if pill['openfda']["manufacturer_name"]
+         repill[:brand] = pill['openfda']["manufacturer_name"][0]
       end
 
       if pill['openfda']["route"]
@@ -60,9 +61,9 @@ json_data['results'].each do |pill|
       if pill["package_label_principal_display_panel"]
          repill[:package_label] = pill["package_label_principal_display_panel"][0]
       end
-
+      p pill
       pills << repill
-    end
+   #  end
     
 end
 
@@ -71,6 +72,8 @@ end
 pills.each do |pill|
    Pill.create( name: pill[:name], purpose: pill[:purpose], description: pill[:description], dose: pill[:dose], pregnancy: pill[:pregnancy], warnings: pill[:warnings], stop_use: pill[:stop_use], brand: pill[:brand], route: pill[:route], package_label: pill[:package_label] )
 end
+
+list1 = PillList.create(name: 'Am Pills', desc: 'pills for the morning', user_id: 1)
 
 # :name,
 # :purpose,

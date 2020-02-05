@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_164856) do
   enable_extension "plpgsql"
 
   create_table "pill_list_joins", force: :cascade do |t|
-    t.integer "list_id"
+    t.integer "pill_list_id"
     t.integer "pill_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_164856) do
 
   create_table "pill_lists", force: :cascade do |t|
     t.string "name"
+    t.string "desc"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -46,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_164856) do
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "password_digest"
+    t.string "password"
     t.string "email"
     t.string "first_name"
     t.string "last_name"
